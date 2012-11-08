@@ -16,6 +16,8 @@
  */
 package org.jboss.as.quickstarts.tasksJsf;
 
+import net.bluedash.bee.model.User;
+
 import java.io.Serializable;
 
 import javax.enterprise.context.ConversationScoped;

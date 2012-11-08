@@ -16,6 +16,8 @@
  */
 package org.jboss.as.quickstarts.tasksJsf;
 
+import net.bluedash.bee.model.User;
+
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;

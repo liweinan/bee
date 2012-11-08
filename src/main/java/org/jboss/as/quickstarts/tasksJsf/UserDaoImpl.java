@@ -16,6 +16,8 @@
  */
 package org.jboss.as.quickstarts.tasksJsf;
 
+import net.bluedash.bee.model.User;
+
 import java.util.List;
 
 import javax.ejb.Stateful;
