@@ -10,7 +10,7 @@
     OF ANY KIND, either express or implied. See the License for the specific 
     language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss</groupId>
@@ -19,7 +19,7 @@
     <packaging>war</packaging>
     <name>Bee</name>
     <description>Bee</description>
-    
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -27,6 +27,41 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
+
+    <repositories>
+        <!-- The JBoss Community public repository is a composite repository of several major repositories -->
+        <!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
+        <!-- At the time of writing, Arquillian and the JBoss Java EE specification POMs are only in the JBoss Community public
+            repository (not Maven central) -->
+        <repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <!-- These optional flags are designed to speed up your builds by reducing remote server calls -->
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <!-- These optional flags are designed to speed up your builds by reducing remote server calls -->
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <!-- Set to true to fix error in which Maven cannot find org.apache.maven.plugins:maven-archetype-plugin:maven-plugin:2.0-alpha-6-SNAPSHOT -->
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following
@@ -78,17 +113,17 @@
     </dependencyManagement>
 
     <dependencies>
-        
+
         <!-- Import the JSF API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
+    in JBoss AS 7 -->
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
             <artifactId>jboss-jsf-api_2.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Import the CDI API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
+    in JBoss AS 7 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -135,8 +170,29 @@
             <version>4.1.2.Final</version>
         </dependency>
 
-    </dependencies>
+        <!-- Seam Solder provides convenient, portable CDI extensions such as an injectable logger -->
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-impl</artifactId>
+            <version>3.1.1.Final</version>
+        </dependency>
 
+        <!-- JSR-303 (Bean Validation) Implementation -->
+        <!-- Provides portable constraints such as @Email -->
+        <!-- Hibernate Validator is the only JSR-303 implementation at the moment, so we can assume it's provided -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.1.0.Final</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 
     <build>
         <!-- Maven will append the version to the finalName (which is the name
