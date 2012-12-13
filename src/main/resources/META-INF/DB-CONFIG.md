@@ -36,3 +36,7 @@
 	     <module name="javax.transaction.api"/>
 	   </dependencies>
 	</module>
+
+# CREATE DATABASE IN POSTGRES
+
+    create database bee encoding 'utf-8' template template0
