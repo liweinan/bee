@@ -1,8 +1,12 @@
 package net.bluedash.bee.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -19,11 +23,14 @@ public class Product {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @OneToMany
-    private List<Label> labels;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private Set<Label> labels = new HashSet<Label>();
 
-    @OneToMany
-    private List<Tag> tags;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private Set<Tag> tags = new HashSet<Tag>();
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private Set<Task> tasks = new HashSet<Task>();
 
     @NotNull
     @Column(nullable = false)
@@ -39,19 +46,19 @@ public class Product {
         this.id = id;
     }
 
-    public List<Label> getLabels() {
+    public Set<Label> getLabels() {
         return labels;
     }
 
-    public void setLabels(List<Label> labels) {
+    public void setLabels(Set<Label> labels) {
         this.labels = labels;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 
@@ -69,5 +76,13 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 }
