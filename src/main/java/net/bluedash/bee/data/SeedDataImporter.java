@@ -55,7 +55,12 @@ public class SeedDataImporter {
         defaultTask.setLabel(defaultLabel);
 
         defaultProduct.getTasks().add(defaultTask);
-
         em.persist(defaultProduct);
+
+        // Add global setting
+        DisplayPosition globalDisplayPosition = new DisplayPosition();
+        globalDisplayPosition.setPos(DisplayPosition.POS_ENTITY | DisplayPosition.POS_LIST);
+        globalDisplayPosition.setGlobal(true);
+        em.persist(globalDisplayPosition);
     }
 }

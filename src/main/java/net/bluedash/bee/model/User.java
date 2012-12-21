@@ -16,6 +16,8 @@
  */
 package net.bluedash.bee.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -32,17 +34,18 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "user")
+@Table(name = "bee_user")
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     @Column(unique = true)
     private String username;
 
-    @OneToMany(cascade = ALL)
+    @OneToMany(cascade = ALL, mappedBy = "user")
     @Column(updatable = false)
     private Set<Task> tasks = new HashSet<Task>();
 
@@ -53,11 +56,11 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

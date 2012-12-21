@@ -5,16 +5,14 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 /**
- * 10 29 2012
+ * 12 21 2012
  *
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
 @Entity
-@Table(name = "bee_label")
-public class Label {
+@Table(name="bee_extended_attribute")
+public class ExtendedAttribute {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -24,25 +22,9 @@ public class Label {
     @Column(nullable = false)
     private String name;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn
     private Product product;
-
-    @NotNull
-    @Column(nullable = false)
-    private Boolean timeTracked;
-
-    @NotNull
-    @Column(nullable = false)
-    private Boolean global = false;
-
-    public Boolean getTimeTracked() {
-        return timeTracked;
-    }
-
-    public void setTimeTracked(Boolean timeTracked) {
-        this.timeTracked = timeTracked;
-    }
 
     public String getId() {
         return id;
@@ -66,13 +48,5 @@ public class Label {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public Boolean getGlobal() {
-        return global;
-    }
-
-    public void setGlobal(Boolean global) {
-        this.global = global;
     }
 }

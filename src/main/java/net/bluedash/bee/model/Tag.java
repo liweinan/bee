@@ -1,5 +1,7 @@
 package net.bluedash.bee.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -11,17 +13,18 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
 @Entity
-@Table(name = "mark")
+@Table(name = "bee_tag")
 public class Tag {
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     @ManyToOne
     private Product product;
 
     @NotNull
-    @Column(nullable =  false)
+    @Column(nullable = false)
     private String name;
 
     @NotNull
@@ -44,11 +47,11 @@ public class Tag {
         this.global = global;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
