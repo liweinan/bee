@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
 @Entity
-@Table(name="bee_setting")
+@Table(name="bee_product_setting")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "col_type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("se")
