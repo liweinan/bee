@@ -51,7 +51,6 @@ public class ProductController implements Serializable {
     }
 
     public void generateTaskListOfProduct() {
-        System.out.println("PRODUCT-NAME: " + productName);
         if (productName == null) return;
 
         CriteriaBuilder builder = em.getCriteriaBuilder();

@@ -8,7 +8,9 @@
 <ui:composition>
     <h:dataTable var="product" value="#{productsForMenu}" rendered="#{not empty productsForMenu}">
         <h:column>
-            #{product.name}
+            <h:link value="#{product.name}" outcome="/products/show">
+                <f:param name="name" value="#{product.name}"/>
+            </h:link>
         </h:column>
     </h:dataTable>
 </ui:composition>
