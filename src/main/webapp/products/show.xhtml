@@ -12,12 +12,18 @@
         PRODUCT-NAME: <h:outputText value="#{products.productName}"/>
 
         <p/>
-        <h:dataTable var="task" value="#{products.tasks}" rendered="#{not empty tasks}">
-            <f:event type="preRenderView" listener="#{products.generateTaskListOfProduct}"/>
-            <h:column>
-                #{task.name}
-            </h:column>
-        </h:dataTable>
 
+        <div class='manage-tbl'>
+            <h:dataTable var="task" value="#{products.tasks}" rendered="#{not empty products.tasks}" style="">
+                <f:event type="preRenderView" listener="#{products.generateTaskListOfProduct}"/>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Task Name"/>
+                    </f:facet>
+                    #{task.name}
+                </h:column>
+            </h:dataTable>
+        </div>
     </ui:define>
 </ui:composition>
