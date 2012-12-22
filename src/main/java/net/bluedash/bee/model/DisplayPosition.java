@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @DiscriminatorValue("dp")
-public class DisplayPosition extends Setting {
+public class DisplayPosition extends ProductSetting {
 
     public static long POS_LIST = 0x1;
     public static long POS_ENTITY = 0x10;
@@ -27,5 +27,9 @@ public class DisplayPosition extends Setting {
 
     public void setPos(Long pos) {
         this.pos = pos;
+    }
+
+    public boolean displayOn(int posToCheck) {
+        return (pos & posToCheck) > 0;
     }
 }

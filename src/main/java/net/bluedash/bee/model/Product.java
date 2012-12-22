@@ -35,7 +35,7 @@ public class Product {
     private Set<Task> tasks = new HashSet<Task>();
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     private String description;

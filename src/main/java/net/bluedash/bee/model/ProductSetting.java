@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "col_type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("se")
-public class Setting {
+public class ProductSetting {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
