@@ -86,6 +86,5 @@ public class ProductController implements Serializable {
         criteria.select(root).where(builder.equal(root.get(Task_.product), product));
 
         tasks = em.createQuery(criteria).getResultList();
-        System.out.println("TASKS-OF-PRODUCT: " + tasks.size());
     }
 }

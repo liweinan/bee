@@ -21,7 +21,9 @@
                     <f:facet name="header">
                         <h:outputText value="#{msgs.task}" styleClass="content-list-head"/>
                     </f:facet>
-                    #{task.name}
+                    <h:link value="#{task.name}" outcome="/tasks/show">
+                        <f:param name="name" value="#{task.name}"/>
+                    </h:link>
                 </h:column>
 
                 <h:column>
@@ -36,7 +38,7 @@
                         <h:outputText value="#{msgs.tag}" styleClass="content-list-head"/>
                     </f:facet>
                     <ui:repeat var="tag" value="#{task.tags.setToList}" rendered="#{not empty task.tags}" varStatus="status" style="">
-                        <h:outputText value="/" rendered="#{status.index > 0}"/>
+                        <h:outputText value=" / " rendered="#{status.index > 0}"/>
                         #{tag.name}
                     </ui:repeat>
                 </h:column>

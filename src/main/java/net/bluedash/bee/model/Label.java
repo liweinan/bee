@@ -36,6 +36,8 @@ public class Label {
     @Column(nullable = false)
     private Boolean global = false;
 
+    private String styleSheet;
+
     public Boolean getTimeTracked() {
         return timeTracked;
     }
@@ -74,5 +76,13 @@ public class Label {
 
     public void setGlobal(Boolean global) {
         this.global = global;
+    }
+
+    public String getStyleSheet() {
+        return styleSheet;
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        this.styleSheet = styleSheet;
     }
 }

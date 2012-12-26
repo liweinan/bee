@@ -47,11 +47,17 @@ public class SeedDataImporter {
         defaultTag.setProduct(defaultProduct);
         defaultProduct.getTags().add(defaultTag);
 
+        Tag defaultTag2 = new Tag();
+        defaultTag2.setName("DEFAULT-TAG-2");
+        defaultTag2.setProduct(defaultProduct);
+        defaultProduct.getTags().add(defaultTag2);
+
         Task defaultTask = new Task();
         defaultTask.setProduct(defaultProduct);
         defaultTask.setAssignee(defaultUser);
         defaultTask.setName("DEFAULT-TASK");
         defaultTask.getTags().add(defaultTag);
+        defaultTask.getTags().add(defaultTag2);
         defaultTask.setLabel(defaultLabel);
 
         defaultProduct.getTasks().add(defaultTask);
