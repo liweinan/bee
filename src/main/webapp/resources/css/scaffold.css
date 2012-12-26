@@ -80,7 +80,7 @@ a:hover {
 }
 
 .manage-tbl th {
-    background: url('/images/th-bar.jpg') repeat-x;
+    background: url("#{resource['images:th-bar.jpg']}") repeat-x;
     height: 24.5px;
     border: 1px solid #dedede;
     color: #000;
@@ -103,7 +103,7 @@ a:hover {
 }
 
 .content-list-head {
-    background-color: #f5f5f5;
+    /*background-color: #f5f5f5;*/
     color: #000;
     font-size: 11px;
 }

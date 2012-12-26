@@ -7,6 +7,7 @@ import net.bluedash.bee.model.Task;
 import net.bluedash.bee.model.Task_;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -32,6 +33,10 @@ public class ProductController implements Serializable {
 
     private String productName;
 
+    @Named
+    @Produces
+    private Product currentProduct;
+
     private List<Task> tasks = new ArrayList<Task>();
 
     public List<Task> getTasks() {
@@ -50,6 +55,14 @@ public class ProductController implements Serializable {
         this.productName = productName;
     }
 
+    public Product getCurrentProduct() {
+        return currentProduct;
+    }
+
+    public void setCurrentProduct(Product currentProduct) {
+        this.currentProduct = currentProduct;
+    }
+
     public void generateTaskListOfProduct() {
         if (productName == null) return;
 
@@ -62,6 +75,7 @@ public class ProductController implements Serializable {
         Product product;
         try {
             product = em.createQuery(productCriteria).getSingleResult();
+            setCurrentProduct(product);
         } catch (javax.persistence.NoResultException e) {
             return;
         }

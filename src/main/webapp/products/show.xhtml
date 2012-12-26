@@ -9,9 +9,9 @@
             <f:viewParam name="name" value="#{products.productName}"/>
         </f:metadata>
 
-        PRODUCT-NAME: <h:outputText value="#{products.productName}"/>
-
-        <p/>
+        <p>
+            <h:outputText value="#{currentProduct.description}"/>
+        </p>
 
         <div class='manage-tbl'>
             <h:dataTable var="task" value="#{products.tasks}" rendered="#{not empty products.tasks}" style="">
@@ -19,10 +19,35 @@
 
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Task Name"/>
+                        <h:outputText value="#{msgs.task}" styleClass="content-list-head"/>
                     </f:facet>
                     #{task.name}
                 </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs.label}" styleClass="content-list-head"/>
+                    </f:facet>
+                    #{task.label.name}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs.tag}" styleClass="content-list-head"/>
+                    </f:facet>
+                    <ui:repeat var="tag" value="#{task.tags.setToList}" rendered="#{not empty task.tags}" varStatus="status" style="">
+                        <h:outputText value="/" rendered="#{status.index > 0}"/>
+                        #{tag.name}
+                    </ui:repeat>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs.assignee}" styleClass="content-list-head"/>
+                    </f:facet>
+                    #{task.assignee.username}
+                </h:column>
+
             </h:dataTable>
         </div>
     </ui:define>
