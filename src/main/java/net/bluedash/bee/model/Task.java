@@ -5,10 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.TreeSet;
 
 /**
  * 10 29 2012
@@ -41,7 +39,7 @@ public class Task {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="bee_task_tag", inverseJoinColumns = {@JoinColumn(name = "ref_tag")})
-    private Set<Tag> tags = new HashSet<Tag>();
+    private Set<Tag> tags = new TreeSet<Tag>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn

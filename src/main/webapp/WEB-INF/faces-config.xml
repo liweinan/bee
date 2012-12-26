@@ -17,7 +17,7 @@
             <base-name>net.bluedash.bee.messages.messages</base-name>
             <var>msgs</var>
         </resource-bundle>
-        <el-resolver>net.bluedash.bee.helper.SetToListELResolver</el-resolver>
+        <el-resolver>net.bluedash.bee.helper.SortedSetToListELResolver</el-resolver>
     </application>
     <!--<navigation-rule>-->
     <!--<from-view-id>/login.xhtml</from-view-id>-->

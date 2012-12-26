@@ -14,7 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "bee_tag")
-public class Tag {
+public class Tag implements Comparable<Tag> {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -61,5 +61,10 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int compareTo(Tag tag) {
+        return name.compareTo(tag.getName());
     }
 }
