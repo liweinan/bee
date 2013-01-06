@@ -6,7 +6,7 @@
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="name" value="#{products.productName}"/>
+            <f:viewParam name="name" value="#{productController.productName}"/>
         </f:metadata>
 
         <p>
@@ -14,8 +14,8 @@
         </p>
 
         <div class='manage-tbl'>
-            <h:dataTable var="task" value="#{products.tasks}" rendered="#{not empty products.tasks}" style="">
-                <f:event type="preRenderView" listener="#{products.generateTaskListOfProduct}"/>
+            <h:dataTable var="task" value="#{tasks}" rendered="#{not empty tasks}" style="">
+                <f:event type="preRenderView" listener="#{productController.tasksOfProduct}"/>
 
                 <h:column>
                     <f:facet name="header">

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <h2><h:outputText value="#{msgs.newtag}"/></h2>
+
+        <h:form>
+            <div class='manage-tbl'>
+                <table>
+                    <tr>
+                        <td align="right">
+                            #{msgs.name}:
+                        </td>
+                        <td align="left">
+                            <h:inputText value="#{tagForm.name}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h:commandButton action="#{tagController.create()}" value="#{msgs.create}"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

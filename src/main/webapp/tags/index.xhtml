@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <h2>#{msgs.tags}</h2>
+
+        <div class='manage-tbl'>
+            <h:dataTable var="tag" value="#{tags}" rendered="#{not empty tags}" style="">
+                <f:event type="preRenderView" listener="#{tagController.tags}"/>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs.tag}" styleClass="content-list-head"/>
+                    </f:facet>
+                    <h:link value="#{tag.name}" outcome="/tasks/show">
+                        <f:param name="name" value="#{task.name}"/>
+                    </h:link>
+                </h:column>
+
+            </h:dataTable>
+        </div>
+        <ui:include src="/WEB-INF/partials/sep.xhtml"/>
+        <h:link value="#{msgs.newtag}" outcome="/tags/new"/>
+    </ui:define>
+</ui:composition>

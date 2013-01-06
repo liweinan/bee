@@ -18,7 +18,7 @@ import javax.persistence.criteria.Root;
  *
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
-@Named("tasks")
+@Named
 @RequestScoped
 public class TaskController {
     @Inject
@@ -31,11 +31,11 @@ public class TaskController {
     @Produces
     private Task currentTask;
 
-    public String getTaskName() {
+    public String getCurrentTaskName() {
         return taskName;
     }
 
-    public void setTaskName(String taskName) {
+    public void setCurrentTaskName(String taskName) {
         this.taskName = taskName;
     }
 

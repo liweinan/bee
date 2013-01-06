@@ -221,6 +221,13 @@
             </plugin>
             <!-- Compiler plugin enforces Java 1.6 compatibility and activates
                 annotation processors -->
+            <!--WARNING: you need to run mvn compile two times to generate metamodel properly,
+            the first time compiler will report error that the metamodel class could not be found.
+            But the second time it's fine.-->
+            <!--WARNING: If you want intellij to generate meta model correctly, please refer to:
+            http://docs.jboss.org/hibernate/jpamodelgen/1.2/reference/en-US/html_single/
+            to see how to enable annotation processing in intellij
+             -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler.plugin.version}</version>

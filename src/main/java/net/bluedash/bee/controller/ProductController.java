@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
-@Named("products")
+@Named
 @RequestScoped
 public class ProductController implements Serializable {
 
@@ -31,13 +31,15 @@ public class ProductController implements Serializable {
     @MemberRepository
     private EntityManager em;
 
-    private String productName;
+    @Named
+    @Produces
+    private List<Task> tasks = new ArrayList<Task>();
 
     @Named
     @Produces
     private Product currentProduct;
 
-    private List<Task> tasks = new ArrayList<Task>();
+    private String productName;
 
     public List<Task> getTasks() {
         return tasks;
@@ -63,7 +65,7 @@ public class ProductController implements Serializable {
         this.currentProduct = currentProduct;
     }
 
-    public void generateTaskListOfProduct() {
+    public void tasksOfProduct() {
         if (productName == null) return;
 
         CriteriaBuilder builder = em.getCriteriaBuilder();

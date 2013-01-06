@@ -6,11 +6,19 @@
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="name" value="#{tasks.taskName}"/>
+            <f:viewParam name="name" value="#{taskController.currentTaskName}"/>
         </f:metadata>
-        <f:event type="preRenderView" listener="#{tasks.setupCurrentTask}"/>
-        <p>
+        <f:event type="preRenderView" listener="#{taskController.setupCurrentTask}"/>
+        <h2>
             <h:outputText value="#{currentTask.name}"/>
-        </p>
+        </h2>
+        <h:outputText value="#{msgs.label}"/>: <h:outputText value="#{currentTask.label.name}"/>
+        /
+        <h:outputText value="#{msgs.tag}"/>:
+        <ui:repeat value="#{currentTask.tags.setToList}" var="tag">
+            <h:outputText value="#{tag.name}"/>,
+        </ui:repeat>
+        /
+        <h:outputText value="#{msgs.assignee}"/>: <h:outputText value="#{currentTask.assignee.username}"/>
     </ui:define>
 </ui:composition>
