@@ -1,16 +1,15 @@
 package net.bluedash.bee.controller;
 
+import com.sun.jarsigner.ContentSigner;
 import net.bluedash.bee.data.MemberRepository;
+import net.bluedash.bee.data.PageStatus;
 import net.bluedash.bee.form.TagForm;
-import net.bluedash.bee.model.Product;
-import net.bluedash.bee.model.Product_;
+import net.bluedash.bee.helper.Constants;
+import net.bluedash.bee.helper.FlashUtil;
 import net.bluedash.bee.model.Tag;
 
-import javax.ejb.*;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
-import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -18,7 +17,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.*;
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -58,20 +56,21 @@ public class TagController {
         this.currentTag = currentTag;
     }
 
-    public void create() {
+    public String create() {
         try {
             utx.begin();
             em.persist(form.toTag());
             utx.commit();
+            FlashUtil.scope().put(Constants.NOTICE, "Tag Created.");
+            return PageStatus.CREATED;
         } catch (Exception e) {
-            e.printStackTrace();
+            return PageStatus.INTERNAL_ERROR;
         }
     }
 
     public void tags() {
         CriteriaBuilder builder = em.getCriteriaBuilder();
 
-        // get target product
         CriteriaQuery<Tag> tagCriteria = builder.createQuery(Tag.class);
         Root<Tag> tagRoot = tagCriteria.from(Tag.class);
         tagCriteria.select(tagRoot);
@@ -79,7 +78,7 @@ public class TagController {
             tags = em.createQuery(tagCriteria).getResultList();
             Collections.sort(tags);
         } catch (javax.persistence.NoResultException e) {
-            return;
+
         }
     }
 }

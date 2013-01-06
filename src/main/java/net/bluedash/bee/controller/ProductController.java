@@ -70,7 +70,6 @@ public class ProductController implements Serializable {
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
 
-        // get target product
         CriteriaQuery<Product> productCriteria = builder.createQuery(Product.class);
         Root<Product> productRoot = productCriteria.from(Product.class);
         productCriteria.select(productRoot).where(builder.equal(productRoot.get(Product_.name), productName));
@@ -82,7 +81,6 @@ public class ProductController implements Serializable {
             return;
         }
 
-        // get tasks of product
         CriteriaQuery<Task> criteria = builder.createQuery(Task.class);
         Root<Task> root = criteria.from(Task.class);
         criteria.select(root).where(builder.equal(root.get(Task_.product), product));

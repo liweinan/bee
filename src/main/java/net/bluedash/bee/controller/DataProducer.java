@@ -2,6 +2,7 @@ package net.bluedash.bee.controller;
 
 import net.bluedash.bee.data.MemberRepository;
 import net.bluedash.bee.model.Product;
+import net.bluedash.bee.model.Product_;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -33,7 +34,7 @@ public class DataProducer {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Product> criteria = cb.createQuery(Product.class);
         Root<Product> productRoot = criteria.from(Product.class);
-        criteria.select(productRoot).orderBy(cb.asc(productRoot.get("name")));
+        criteria.select(productRoot).orderBy(cb.asc(productRoot.get(Product_.name)));
         productsForMenu = em.createQuery(criteria).getResultList();
         return productsForMenu;
     }

@@ -52,7 +52,6 @@ public class TaskController {
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
 
-        // get target product
         CriteriaQuery<Task> taskCriteria = builder.createQuery(Task.class);
         Root<Task> taskRoot = taskCriteria.from(Task.class);
         taskCriteria.select(taskRoot).where(builder.equal(taskRoot.get(Task_.name), taskName));
