@@ -92,6 +92,8 @@
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
+
+        <hibernate-jpamodelgen.version>1.2.0.Final</hibernate-jpamodelgen.version>
     </properties>
 
     <dependencyManagement>
@@ -196,7 +198,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>1.2.0.Final</version>
+            <version>${hibernate-jpamodelgen.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
@@ -234,11 +236,37 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
-                    <compilerArguments>
-                        <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-                    </compilerArguments>
+                    <compilerArgument>-proc:none</compilerArgument>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.bsc.maven</groupId>
+                <artifactId>maven-processor-plugin</artifactId>
+                <version>2.0.5</version>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <processors>
+                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                            </processors>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-jpamodelgen</artifactId>
+                        <version>${hibernate-jpamodelgen.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
             <!-- Surefire plugin is responsible for running tests
                 as part of project build -->
             <plugin>

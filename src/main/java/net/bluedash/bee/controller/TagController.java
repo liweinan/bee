@@ -30,6 +30,10 @@ import java.util.List;
 @Model
 public class TagController {
 
+    public TagController() {
+        System.out.println("[+] TAG-CONTROLLER");
+    }
+
     @Inject
     @MemberRepository
     private EntityManager em;
@@ -40,6 +44,8 @@ public class TagController {
     @Inject
     private TagForm form;
 
+    // Everytime this is accessed, a new tagController will be initialized.
+    // TODO Maybe I could move this one into session scope
     @Named
     @Produces
     private List<Tag> tags;
@@ -62,6 +68,7 @@ public class TagController {
             em.persist(form.toTag());
             utx.commit();
             FlashUtil.scope().put(Constants.NOTICE, "Tag Created.");
+
             return PageStatus.CREATED;
         } catch (Exception e) {
             return PageStatus.INTERNAL_ERROR;
