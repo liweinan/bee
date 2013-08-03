@@ -11,11 +11,11 @@ import javax.validation.constraints.NotNull;
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
 @Entity
-@Table(name="bee_product_setting")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "col_type", discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("se")
-public class ProductSetting {
+@Table(name="bee_settings")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "col_type", discriminatorType = DiscriminatorType.STRING)
+//@DiscriminatorValue("se")
+public class Setting {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -25,7 +25,7 @@ public class ProductSetting {
     private Boolean global;
 
     @ManyToOne
-    private Product product;
+    private Task product;
 
     public String getId() {
         return id;
@@ -35,11 +35,11 @@ public class ProductSetting {
         this.id = id;
     }
 
-    public Product getProduct() {
+    public Task getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Task product) {
         this.product = product;
     }
 

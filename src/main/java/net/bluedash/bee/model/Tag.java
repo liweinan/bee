@@ -5,15 +5,13 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 /**
  * 10 29 2012
  *
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
 @Entity
-@Table(name = "bee_tag")
+@Table(name = "bee_tags")
 public class Tag implements Comparable<Tag> {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -21,22 +19,22 @@ public class Tag implements Comparable<Tag> {
     private String id;
 
     @ManyToOne
-    private Product product;
+    private Task task;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @NotNull
     @Column(nullable = false)
     private Boolean global = false;
 
-    public Product getProduct() {
-        return product;
+    public Task getTask() {
+        return task;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public Boolean getGlobal() {

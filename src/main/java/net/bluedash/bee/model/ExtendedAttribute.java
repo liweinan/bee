@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
+@Deprecated
 @Entity
 @Table(name="bee_extended_attribute")
 public class ExtendedAttribute {
@@ -24,7 +25,7 @@ public class ExtendedAttribute {
 
     @NotNull
     @ManyToOne
-    private Product product;
+    private Task product;
 
     public String getId() {
         return id;
@@ -42,11 +43,11 @@ public class ExtendedAttribute {
         this.name = name;
     }
 
-    public Product getProduct() {
+    public Task getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Task product) {
         this.product = product;
     }
 }

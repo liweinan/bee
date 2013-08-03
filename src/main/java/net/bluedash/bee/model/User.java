@@ -21,11 +21,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * User entity
@@ -34,7 +32,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "bee_user")
+@Table(name = "bee_users")
 public class User implements Serializable {
 
     @Id
@@ -47,7 +45,7 @@ public class User implements Serializable {
 
     @OneToMany(cascade = ALL, mappedBy = "user")
     @Column(updatable = false)
-    private Set<Task> tasks = new HashSet<Task>();
+    private Set<Package> aPackages = new HashSet<Package>();
 
     public User() {
     }
@@ -72,12 +70,12 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public Set<Task> getTasks() {
-        return tasks;
+    public Set<Package> getaPackages() {
+        return aPackages;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setaPackages(Set<Package> aPackages) {
+        this.aPackages = aPackages;
     }
 
     @Override

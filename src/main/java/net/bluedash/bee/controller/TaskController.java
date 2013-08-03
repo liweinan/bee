@@ -1,8 +1,10 @@
 package net.bluedash.bee.controller;
 
 import net.bluedash.bee.data.MemberRepository;
-import net.bluedash.bee.model.Task;
+import net.bluedash.bee.model.*;
+import net.bluedash.bee.model.Package;
 import net.bluedash.bee.model.Task_;
+import net.bluedash.bee.model.Package_;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -12,57 +14,77 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 12 26 2012
+ * 12 22 2012
  *
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
 @Named
 @RequestScoped
-public class TaskController {
+public class TaskController implements Serializable {
+
     @Inject
     @MemberRepository
     private EntityManager em;
 
-    private String taskName;
+    @Named
+    @Produces
+    private List<Package> packages = new ArrayList<Package>();
 
     @Named
     @Produces
-    private Task currentTask;
+    private Task currentProduct;
 
-    public String getCurrentTaskName() {
+    private String taskName;
+
+    public List<Package> getPackages() {
+        return packages;
+    }
+
+    public void setPackages(List<Package> packages) {
+        this.packages = packages;
+    }
+
+    public String getTaskName() {
         return taskName;
     }
 
-    public void setCurrentTaskName(String taskName) {
+    public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
 
-    public Task getCurrentTask() {
-        return currentTask;
+    public Task getCurrentProduct() {
+        return currentProduct;
     }
 
-    public void setCurrentTask(Task currentTask) {
-        this.currentTask = currentTask;
+    public void setCurrentProduct(Task currentProduct) {
+        this.currentProduct = currentProduct;
     }
 
-    public void setupCurrentTask() {
+    public void packagesOfTask() {
         if (taskName == null) return;
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
 
-        CriteriaQuery<Task> taskCriteria = builder.createQuery(Task.class);
-        Root<Task> taskRoot = taskCriteria.from(Task.class);
-        taskCriteria.select(taskRoot).where(builder.equal(taskRoot.get(Task_.name), taskName));
-
+        CriteriaQuery<Task> taskC = builder.createQuery(Task.class);
+        Root<Task> taskRoot = taskC.from(Task.class);
+        taskC.select(taskRoot).where(builder.equal(taskRoot.get(Task_.name), taskName));
         Task task;
         try {
-            task = em.createQuery(taskCriteria).getSingleResult();
-            setCurrentTask(task);
+            task = em.createQuery(taskC).getSingleResult();
+            setCurrentProduct(task);
         } catch (javax.persistence.NoResultException e) {
             return;
         }
 
+        CriteriaQuery<Package> packageC = builder.createQuery(Package.class);
+        Root<Package> packageRoot = packageC.from(Package.class);
+        packageC.select(packageRoot).where(builder.equal(packageRoot.get(Package_.task), task));
+
+        packages = em.createQuery(packageC).getResultList();
     }
 }

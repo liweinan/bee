@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="name" value="#{packageController.currentTaskName}"/>
+        </f:metadata>
+        <f:event type="preRenderView" listener="#{packageController.setupCurrentTask}"/>
+        <h2>
+            <h:outputText value="#{currentPackage.name}"/>
+        </h2>
+        <h:outputText value="#{msgs.status}"/>: <h:outputText value="#{currentPackage.status.name}"/>
+        /
+        <h:outputText value="#{msgs.tag}"/>:
+        <ui:repeat value="#{currentPackage.tags.setToList}" var="tag">
+            <h:outputText value="#{tag.name}"/>,
+        </ui:repeat>
+        /
+        <h:outputText value="#{msgs.assignee}"/>: <h:outputText value="#{currentPackage.assignee.username}"/>
+    </ui:define>
+</ui:composition>

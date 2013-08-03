@@ -1,6 +1,7 @@
 package net.bluedash.bee.data;
 
 import net.bluedash.bee.model.*;
+import net.bluedash.bee.model.Package;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -29,44 +30,48 @@ public class SeedDataImporter {
     public void importData() {
 
         User defaultUser = new User();
-        defaultUser.setUsername("DEFAULT-USER");
+        defaultUser.setUsername("weli");
         em.persist(defaultUser);
 
-        Product defaultProduct = new Product();
-        defaultProduct.setName("DEFAULT-PRODUCT");
-        defaultProduct.setDescription("Default Product");
+        Task defaultTask = new Task();
+        defaultTask.setName("mocked-jb-eap-6.1.1");
+        defaultTask.setDescription("Mocked task");
 
-        Label defaultLabel = new Label();
-        defaultLabel.setName("DEFAULT-LABEL");
-        defaultLabel.setTimeTracked(false);
-        defaultLabel.setProduct(defaultProduct);
-        defaultProduct.getLabels().add(defaultLabel);
+        Status defaultStatus = new Status();
+        defaultStatus.setName("mocked-Open");
+        defaultStatus.setTimeTracked(false);
+        defaultStatus.setTask(defaultTask);
+        defaultTask.getStatuses().add(defaultStatus);
 
         Tag defaultTag = new Tag();
-        defaultTag.setName("DEFAULT-TAG");
-        defaultTag.setProduct(defaultProduct);
-        defaultProduct.getTags().add(defaultTag);
+        defaultTag.setName("mocked-Tag");
+        defaultTag.setTask(defaultTask);
+        defaultTask.getTags().add(defaultTag);
 
         Tag defaultTag2 = new Tag();
-        defaultTag2.setName("DEFAULT-TAG-2");
-        defaultTag2.setProduct(defaultProduct);
-        defaultProduct.getTags().add(defaultTag2);
-
-        Task defaultTask = new Task();
-        defaultTask.setProduct(defaultProduct);
-        defaultTask.setAssignee(defaultUser);
-        defaultTask.setName("DEFAULT-TASK");
-        defaultTask.getTags().add(defaultTag);
+        defaultTag2.setName("mocked-Tag2");
+        defaultTag2.setTask(defaultTask);
         defaultTask.getTags().add(defaultTag2);
-        defaultTask.setLabel(defaultLabel);
 
-        defaultProduct.getTasks().add(defaultTask);
-        em.persist(defaultProduct);
+        Package defaultPackage = new Package();
+        defaultPackage.setTask(defaultTask);
+        defaultPackage.setAssignee(defaultUser);
+        defaultPackage.setName("mocked-package");
+        defaultPackage.getTags().add(defaultTag);
+        defaultPackage.getTags().add(defaultTag2);
+        defaultPackage.setStatus(defaultStatus);
 
-        // Add global setting
-        DisplayPosition globalDisplayPosition = new DisplayPosition();
-        globalDisplayPosition.setPos(DisplayPosition.POS_ENTITY | DisplayPosition.POS_LIST);
-        globalDisplayPosition.setGlobal(true);
-        em.persist(globalDisplayPosition);
+        defaultTask.getPackages().add(defaultPackage);
+        em.persist(defaultTask);
+
+//        // Add global setting
+//        DisplayPosition globalDisplayPosition = new DisplayPosition();
+//        globalDisplayPosition.setPos(DisplayPosition.POS_ENTITY | DisplayPosition.POS_LIST);
+//        globalDisplayPosition.setGlobal(true);
+//        em.persist(globalDisplayPosition);
+        Setting setting = new Setting();
+        setting.setGlobal(true);
+        em.persist(setting);
+
     }
 }

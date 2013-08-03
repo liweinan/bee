@@ -6,19 +6,54 @@
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="name" value="#{taskController.currentTaskName}"/>
+            <f:viewParam name="name" value="#{taskController.taskName}"/>
         </f:metadata>
-        <f:event type="preRenderView" listener="#{taskController.setupCurrentTask}"/>
-        <h2>
-            <h:outputText value="#{currentTask.name}"/>
-        </h2>
-        <h:outputText value="#{msgs.label}"/>: <h:outputText value="#{currentTask.label.name}"/>
-        /
-        <h:outputText value="#{msgs.tag}"/>:
-        <ui:repeat value="#{currentTask.tags.setToList}" var="tag">
-            <h:outputText value="#{tag.name}"/>,
-        </ui:repeat>
-        /
-        <h:outputText value="#{msgs.assignee}"/>: <h:outputText value="#{currentTask.assignee.username}"/>
+
+        <p>
+            <h:outputText value="#{currentProduct.description}"/>
+        </p>
+
+        <div class='manage-tbl'>
+            <h:dataTable var="aPackage" value="#{packages}" rendered="#{not empty packages}" style="">
+                <f:event type="preRenderView" listener="#{taskController.packagesOfTask}"/>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs.aPackage}" styleClass="content-list-head"/>
+                    </f:facet>
+                    <h:link value="#{aPackage.name}" outcome="/packages/show">
+                        <f:param name="name" value="#{aPackage.name}"/>
+                    </h:link>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs.status}" styleClass="content-list-head"/>
+                    </f:facet>
+                    #{aPackage.status.name}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs.tag}" styleClass="content-list-head"/>
+                    </f:facet>
+                    <ui:repeat var="tag" value="#{aPackage.tags.setToList}" rendered="#{not empty aPackage.tags}" varStatus="status" style="">
+                        <h:outputText value=" / " rendered="#{status.index > 0}"/>
+                        #{tag.name}
+                    </ui:repeat>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs.assignee}" styleClass="content-list-head"/>
+                    </f:facet>
+                    #{aPackage.assignee.username}
+                </h:column>
+
+            </h:dataTable>
+        </div>
+
+        <ui:include src="/WEB-INF/partials/sep.xhtml"/>
+        <h:link value="#{msgs.newtask}" outcome="/packages/new"/>
     </ui:define>
 </ui:composition>

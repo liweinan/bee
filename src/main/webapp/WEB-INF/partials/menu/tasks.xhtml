@@ -6,10 +6,10 @@
 <head><title>IGNORED</title></head>
 <body>
 <ui:composition>
-        <h:dataTable var="product" value="#{productsForMenu}" rendered="#{not empty productsForMenu}">
+        <h:dataTable var="task" value="#{tasks}" rendered="#{not empty tasks}">
             <h:column>
-                <h:link value="#{product.name}" outcome="/products/show">
-                    <f:param name="name" value="#{product.name}"/>
+                <h:link value="#{task.name}" outcome="/tasks/show">
+                    <f:param name="name" value="#{task.name}"/>
                 </h:link>
             </h:column>
         </h:dataTable>

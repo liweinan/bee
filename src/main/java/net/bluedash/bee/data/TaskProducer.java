@@ -1,8 +1,8 @@
-package net.bluedash.bee.controller;
+package net.bluedash.bee.data;
 
 import net.bluedash.bee.data.MemberRepository;
-import net.bluedash.bee.model.Product;
-import net.bluedash.bee.model.Product_;
+import net.bluedash.bee.model.Task;
+//import net.bluedash.bee.model.Product_;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -20,23 +20,23 @@ import java.util.List;
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
 @RequestScoped
-public class DataProducer {
+public class TaskProducer {
 
     @Inject
     @MemberRepository
     private EntityManager em;
 
-    private List<Product> productsForMenu;
+    private List<Task> tasks;
 
     @Produces
     @Named
-    public List<Product> getProductsForMenu() {
+    public List<Task> getTasks() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Product> criteria = cb.createQuery(Product.class);
-        Root<Product> productRoot = criteria.from(Product.class);
-        criteria.select(productRoot).orderBy(cb.asc(productRoot.get(Product_.name)));
-        productsForMenu = em.createQuery(criteria).getResultList();
-        return productsForMenu;
+        CriteriaQuery<Task> criteria = cb.createQuery(Task.class);
+        Root<Task> productRoot = criteria.from(Task.class);
+//        criteria.select(productRoot).orderBy(cb.asc(productRoot.get(Product_.name)));
+        tasks = em.createQuery(criteria).getResultList();
+        return tasks;
     }
 
 }

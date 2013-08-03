@@ -15,7 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
 @Entity
-@Table(name = "bee_changelog")
+@Table(name = "bee_changelogs")
 public class Changelog {
     @Id
     @GeneratedValue(generator = "uuid")

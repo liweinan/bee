@@ -5,15 +5,13 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 /**
  * 10 29 2012
  *
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
 @Entity
-@Table(name = "bee_track_time")
+@Table(name = "bee_track_times")
 public class TrackTime implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -21,10 +19,10 @@ public class TrackTime implements Serializable {
     private String id;
 
     @ManyToOne
-    private Label label;
+    private Status status;
 
     @ManyToOne
-    private Task task;
+    private Package aPackage;
 
     @ManyToOne
     private User user;
@@ -40,11 +38,11 @@ public class TrackTime implements Serializable {
         this.id = id;
     }
 
-    public Label getLabel() {
-        return label;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setLabel(Label label) {
-        this.label = label;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

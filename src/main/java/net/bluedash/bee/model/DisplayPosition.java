@@ -1,8 +1,6 @@
 package net.bluedash.bee.model;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -10,9 +8,10 @@ import javax.validation.constraints.NotNull;
  *
  * @author <a href="mailto:l.weinan@gmail.com">Weinan Li</a>
  */
-@Entity
-@DiscriminatorValue("dp")
-public class DisplayPosition extends ProductSetting {
+//@Entity
+//@DiscriminatorValue("dp")
+@Deprecated
+public class DisplayPosition extends Setting {
 
     public static long POS_LIST = 0x1;
     public static long POS_ENTITY = 0x10;
